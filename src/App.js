@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Navbar } from "react-bootstrap";
-
+import {HashRouter, Route, NavLink, Switch} from 'react-router-dom';
 import "./App.css";
 
 import Home from "./Home";
@@ -8,34 +8,25 @@ import About from "./About";
 import Contact from "./Contact";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: window.location.hash
-    };
-    this.setLocation = this.setLocation.bind(this);
-  }
-  setLocation(location) {
-    // onClick={() => this.setLocation("/")}
-    // onClick={() => this.setLocation("/About")}
-    // onClick={() => this.setLocation("/Contact")}
-    // window.location.hash = location;
-    // this.setState({ location: location });
-  }
   render() {
     return (
       <div className="App">
-        <Navbar bsClass="App-header">
-          <div className="flex">
-            <a href="/#/">Home</a>
-            <a href="/#/About">About</a>
-            <a href="/#/Contact">Contact</a>
+        <HashRouter>
+          <div>
+          <Navbar bsClass="App-header">
+            <div className="flex">
+              <NavLink activeClassName="active" exact to="/"> Home </NavLink>
+              <NavLink activeClassName="active" to="/About"> About </NavLink>
+              <NavLink activeClassName="active" to="/Contact"> Contact </NavLink>
+            </div>
+          </Navbar>
+            <Switch className="">
+              <Route exact path='/' component={Home} />
+              <Route path='/About' component={About} />
+              <Route path='/Contact' component={Contact} />
+            </Switch>
           </div>
-        </Navbar>
-
-        <Home />
-        <About />
-        <Contact />
+        </HashRouter>
       </div>
     );
   }
